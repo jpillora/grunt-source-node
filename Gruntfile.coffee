@@ -26,6 +26,5 @@ module.exports = (grunt) ->
   #create 
   copyDefaultsTask grunt, defaultsFolder, currentFolder
 
-
-  grunt.registerTask "default", [ "readme", "copy-defaults"]
+  grunt.registerTask "default", [ "copy-defaults", "readme"]
 

@@ -1,0 +1,52 @@
+# grunt-source-node
+
+Node.js project helper
+
+* Template your `README.md` using your `package.json` and more, see [this](https://raw.github.com/jpillora/grunt-source-node/master/defaults/README.md) and [this](https://raw.github.com/jpillora/flatify/master/README.md)
+* Add missing files and folders:
+  * Pre-templated `README.md`
+  * Node `.travis.yml`
+  * Git ignore `.gitignore`
+  * Initial example `example/basic.js`
+  * Initial test `example/basic-test.js`
+
+## Usage
+
+```
+npm install -g grunt-source
+```
+
+Add to your `package.json`
+``` json
+  "gruntSource": {
+    "source": "~/.grunt-sources/node",
+    "repo": "https://github.com/jpillora/grunt-source-node.git",
+  }
+```
+
+```
+grunt-source
+```
+
+#### MIT License
+
+Copyright &copy; 2013 Jaime Pillora &lt;dev@jpillora.com&gt;
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
