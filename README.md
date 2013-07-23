@@ -16,12 +16,14 @@ Node.js project helper
 npm install -g grunt-source
 ```
 
-Add to your `package.json`
+Add the `gruntSource` field to your `package.json`
 ``` json
+  ...
   "gruntSource": {
     "source": "~/.grunt-sources/node",
-    "repo": "https://github.com/jpillora/grunt-source-node.git",
+    "repo": "https://github.com/jpillora/grunt-source-node.git"
   }
+}
 ```
 
 ```
