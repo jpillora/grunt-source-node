@@ -29,47 +29,48 @@ blurbs =
 
 module.exports = (grunt, data) ->
 
-  DO_ASYNC = {} 
   # usable methods
-  context = _.extend {}, data,
-    DO_ASYNC: DO_ASYNC
-    #set per exec
-    callback: null
-    runFile: (file, args = []) ->
-      async = true
-      proc = fork file, args, {silent:true}
-      out = ''
-      err = ''
-      proc.stdout.on 'data', (buff) -> out += buff.toString()
-      proc.stderr.on 'data', (buff) -> err += buff.toString()
-      proc.on 'close', (code) ->
-        context.callback err, "\n```\n#{out}\n```\n"
-      return DO_ASYNC
+  makeContext = (callback) ->
+    DO_ASYNC = {}
+    _.extend {}, data,
+      DO_ASYNC: DO_ASYNC
+      #set per exec
+      callback: callback
+      runFile: (file, args = []) ->
+        async = true
+        proc = fork file, args, {silent:true}
+        out = ''
+        err = ''
+        proc.stdout.on 'data', (buff) -> out += buff.toString()
+        proc.stderr.on 'data', (buff) -> err += buff.toString()
+        proc.on 'close', (code) ->
+          callback err, "\n```\n#{out}\n```\n"
+        return DO_ASYNC
 
-    #
-    showFile: (file) ->
-      async = true
-      language = ''
-      if /\.js$/.test file
-        language = ' javascript'
-      fs.readFile file, (err, result) ->
-        return context.callback(err) if err
-        result = result.toString().replace /require\(["']\.\.\/\["']\)/, "require('#{data.name}')"
-        context.callback null, "\n```#{language}\n#{result}\n```\n"
-      return DO_ASYNC
+      #
+      showFile: (file) ->
+        async = true
+        language = ''
+        if /\.js$/.test file
+          language = ' javascript'
+        fs.readFile file, (err, result) ->
+          return callback(err) if err
+          result = result.toString().replace /require\(["']\.\.\/\["']\)/, "require('#{data.name}')"
+          callback null, "\n```#{language}\n#{result}\n```\n"
+        return DO_ASYNC
 
-    codeBlock: (str)->
-      "\n```\n#{str}\n```\n"
+      codeBlock: (str)->
+        "\n```\n#{str}\n```\n"
 
-    license: ->
-      unless data.license
-        return null
-      """\n#### #{data.license} License
+      license: ->
+        unless data.license
+          return null
+        """\n#### #{data.license} License
 
-      Copyright &copy; #{new Date().getFullYear()} #{data.author}
+        Copyright &copy; #{new Date().getFullYear()} #{data.author}
 
-      #{blurbs[data.license]}\n
-      """
+        #{blurbs[data.license] || ''}\n
+        """
 
   #README templates
   grunt.registerTask 'readme', 'Allow templating in your README.md', ->
@@ -78,15 +79,15 @@ module.exports = (grunt, data) ->
 
     md = newmd = grunt.file.read 'README.md'
 
-    process = ->
-
+    getCode = ->
       m = newmd.match /<\s*([^>]+?)\s*>([\S\s]*?)<\/end>/
-
       unless m
         return processed() 
+      process(m[0], m[1])
 
-      code = m[1]
-      # grunt.log.writeln "execute: #{code}"
+    process = (text, code) ->
+
+      grunt.verbose.writeln "execute: #{code}"
 
       ran = (err, str) ->
         if err
@@ -97,16 +98,15 @@ module.exports = (grunt, data) ->
           return
         str = str.toString()
         str = str.replace(/>/g,'&gt;').replace(/</g,'&lt;')
-        newmd = newmd.replace m[0], "⦓#{code}⦔#{str}⦓/end⦔"
-        process()
+        newmd = newmd.replace text, "⦓#{code}⦔#{str}⦓/end⦔"
+        getCode()
 
       try
-        context.callback = ran
         vm.runInNewContext """
           var result = #{code};
           if(result !== DO_ASYNC)
             callback(null,result);
-        """, context
+        """, makeContext(ran)
       catch e
         grunt.fail.warn "Error executing '#{code}'\n#{e.stack}"
         
@@ -119,4 +119,4 @@ module.exports = (grunt, data) ->
         grunt.log.writeln "No changes to README.md"
       done()
 
-    process()
+    getCode()

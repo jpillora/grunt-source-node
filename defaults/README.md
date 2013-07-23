@@ -10,11 +10,8 @@
 
 ## Usage
 
-Run this:
-<showFile("example/readme.js")></end>
+<showFile("example/basic.js")></end>
 
-Results in:
-<runFile("example/readme.js")></end>
-
+<runFile("example/basic.js")></end>
 
 <license()></end>
