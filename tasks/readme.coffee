@@ -53,6 +53,8 @@ module.exports = (grunt, data) ->
         language = ''
         if /\.js$/.test file
           language = ' javascript'
+        if /\.json$/.test file
+          language = ' json'
         fs.readFile file, (err, result) ->
           return callback(err) if err
           result = result.toString().replace /require\(["']\.\.\/\["']\)/, "require('#{data.name}')"
