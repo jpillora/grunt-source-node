@@ -6,6 +6,9 @@ _ = require "lodash"
 
 module.exports = (grunt) ->
 
+  grunt.loadNpmTasks "grunt-contrib-coffee"
+  grunt.loadNpmTasks "grunt-jpillora-watch"
+
   readmeTask = require "./tasks/readme"
   copyDefaultsTask = require "./tasks/defaults"
 
@@ -26,6 +29,32 @@ module.exports = (grunt) ->
   #create 
   copyDefaultsTask grunt, defaultsFolder, currentFolder
 
+  #config
+  grunt.initConfig
+    coffee:
+      compile:
+        expand: true
+        bare: true
+        join: false
+        cwd: 'src/'
+        src: ['**/*.coffee']
+        dest: 'out/'
+        ext: '.js'
+    watch:
+      options:
+        gruntCwd: gruntdir
+      files: ['src/**/*.coffee']
+      tasks: ['coffee']
+
+  #aliases
   grunt.registerTask "init", [ "copy-defaults" ]
+  grunt.registerTask "dev", [ "coffee", "watch" ]
   grunt.registerTask "default", [ "readme"]
+
+
+
+
+
+
+
 
