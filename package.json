@@ -8,7 +8,7 @@
     "grunt": "~0.4.1",
     "mkdirp": "~0.3.5",
     "grunt-contrib-coffee": "~0.7.0",
-    "grunt-jpillora-watch": "~0.4.4patch1"
+    "grunt-jpillora-watch": "~0.4.4"
   },
   "repository": {
     "type": "git",
