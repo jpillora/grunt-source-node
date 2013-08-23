@@ -27,12 +27,14 @@ blurbs =
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     """
 
-module.exports = (grunt, data) ->
+module.exports = (grunt) ->
+
+  data = null
 
   # usable methods
   makeContext = (callback) ->
     DO_ASYNC = {}
-    _.extend {}, data,
+    ctx = _.extend {}, data,
       DO_ASYNC: DO_ASYNC
       #set per exec
       callback: callback
@@ -73,10 +75,15 @@ module.exports = (grunt, data) ->
 
         #{blurbs[data.license] || ''}\n
         """
+    
+    ctx
 
   #README templates
   grunt.registerTask 'readme', 'Allow templating in your README.md', ->
     
+
+    data = grunt.file.readJSON './package.json'
+
     done = @async()
 
     md = newmd = grunt.file.read 'README.md'
@@ -95,8 +102,8 @@ module.exports = (grunt, data) ->
         if err
           grunt.fail.warn "Error executing: '#{code}'\n#{err}"
           return
-        unless str
-          grunt.fail.warn "Error executing: '#{code}'\nResult is: '#{str}'"
+        unless typeof str.toString is 'function'
+          grunt.fail.warn "Error executing: '#{code}'\nInvalid result"
           return
         str = str.toString()
         str = str.replace(/>/g,'&gt;').replace(/</g,'&lt;')

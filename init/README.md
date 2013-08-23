@@ -1,8 +1,6 @@
 # <name></end>
 
-<description></end>
-
-`v<version></end>`
+<description></end> - v<version></end>
 
 ## Download
 

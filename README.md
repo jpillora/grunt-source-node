@@ -8,27 +8,30 @@ Node.js project helper
   * Node `.travis.yml`
   * Git ignore `.gitignore`
   * Initial example `example/basic.js`
-  * Initial test `example/basic-test.js`
+  * Initial test `example/basic-test.coffee`
 
 ## Usage
 
-```
-npm install -g grunt-source
-```
+* Install Grunt Source
 
-Add the `gruntSource` field to your `package.json`
-``` json
-  ...
-  "gruntSource": {
-    "source": "~/.grunt-sources/node",
-    "repo": "https://github.com/jpillora/grunt-source-node.git"
+  http://github.com/jpillora/grunt-source
+
+* Add the `gruntSource` field to your `package.json`
+
+  ``` json
+    ...
+    "gruntSource": {
+      "source": "~/.grunt-sources/node",
+      "repo": "https://github.com/jpillora/grunt-source-node.git"
+    }
   }
-}
-```
+  ```
 
-```
-grunt-source
-```
+* Run it
+
+  ```
+  grunt-source
+  ```
 
 #### MIT License
 
