@@ -1,9 +1,13 @@
-# grunt-source-node
+grunt-source-web
+====================
 
-Node.js project helper
+A premade Grunt environment to manage Node projects,
+utilizing [Grunt Source](https://github.com/jpillora/grunt-source).
 
-* Template your `README.md` using your `package.json` and more, see [this](https://raw.github.com/jpillora/grunt-source-node/master/defaults/README.md) and [this](https://raw.github.com/jpillora/flatify/master/README.md)
-* Add missing files and folders:
+## Features
+
+* A `readme` task, to add templating to your `README.md` using your `package.json` and more, see [this](https://raw.github.com/jpillora/grunt-source-node/master/defaults/README.md) and [this](https://raw.github.com/jpillora/flatify/master/README.md)
+* Initialise Node projects 
   * Pre-templated `README.md`
   * Node `.travis.yml`
   * Git ignore `.gitignore`
@@ -19,11 +23,11 @@ Node.js project helper
 * Add the `gruntSource` field to your `package.json`
 
   ``` json
-    ...
-    "gruntSource": {
-      "source": "~/.grunt-sources/node",
-      "repo": "https://github.com/jpillora/grunt-source-node.git"
-    }
+  {
+      "gruntSource": {
+        "source": "~/.grunt-sources/node",
+        "repo": "https://github.com/jpillora/grunt-source-node.git"
+      }
   }
   ```
 
