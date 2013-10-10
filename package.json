@@ -17,7 +17,5 @@
   "bugs": {
     "url": "https://github.com/jpillora/grunt-source-node/issues"
   },
-  "dependencies": {
-    "grunt-contrib-watch": "~0.5.2"
-  }
+  "dependencies": {}
 }
